@@ -54,6 +54,11 @@ public class Main {
                 break;
             }
 
+            case 5 -> {
+                removerContato();
+                break;
+            }
+
             case 6 -> {
                 sair = true;
                 break;
@@ -122,6 +127,30 @@ public class Main {
         } else {
             System.out.println("Opção inválida!");
             atualizarContato();
+        }
+    }
+
+    public static void removerContato() {
+        System.out.println("  -- REMOVER CONTATO --  ");
+        List<Integer> idContatos = new ArrayList<>();
+        List<Contato> contatos = new ArrayList<>();
+        var dao = new ContatoDAO();
+
+        try {
+            contatos = dao.listarContatos();
+            idContatos = exibirContatos(contatos);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("ID do contato para remoção: ");
+        int id = SC.nextInt();
+        SC.nextLine();
+
+        try {
+            dao.removerContato(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
